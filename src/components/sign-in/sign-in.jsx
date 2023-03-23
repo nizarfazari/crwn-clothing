@@ -8,7 +8,6 @@ import {
 } from "../../utils/firebase/firebase.utils";
 
 import "./sign-in.scss";
-import { UserContext } from "../../contexts/user.context";
 const defaultFormField = {
   email: "",
   password: "",
@@ -17,7 +16,6 @@ const defaultFormField = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormField);
   const { email, password } = formFields;
-  const { setCurrentUser } = useContext(UserContext);
 
   // useEffect(async () => {
   //   const response = await getRedirectResult(auth);
@@ -31,8 +29,7 @@ const SignInForm = () => {
   };
 
   const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const handleChange = (e) => {
@@ -48,7 +45,7 @@ const SignInForm = () => {
         email,
         password
       );
-      setCurrentUser(user);
+
       resetForm();
     } catch (error) {
       switch (error.code) {
@@ -85,11 +82,7 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Submit</Button>
-          <Button
-            type="button"
-            buttonType="google"
-            onClick={logGoogleUser}
-          >
+          <Button type="button" buttonType="google" onClick={logGoogleUser}>
             Google Sign In
           </Button>
         </div>
