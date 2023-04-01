@@ -14,7 +14,6 @@ export const UserProvider = ({ children }) => {
  useEffect(()=>{
   //untuk mendapatkan data user dari onStateChange pada firebase utils
   const unsubscribe = onAuthStateChangedListener((user) => {
-    console.log(user)
     if(user){
       createUserDocumentFromAuth(user)
     }
